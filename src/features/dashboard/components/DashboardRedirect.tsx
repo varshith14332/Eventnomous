@@ -1,0 +1,14 @@
+import React from 'react';
+import { Navigate } from 'react-router-dom';
+import { useAuthStore } from '../../../store/authStore';
+
+export const DashboardRedirect: React.FC = () => {
+    const { user } = useAuthStore();
+
+    if (!user) {
+        return <Navigate to="/login" replace />;
+    }
+
+    const role = user.role.toLowerCase();
+    return <Navigate to={`/dashboard/${role}`} replace />;
+};

@@ -1,0 +1,58 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      String   @default("CUSTOMER") // CUSTOMER, VENDOR, ADMIN, MANAGER
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  vendorProfile VendorProfile?
+  events        Event[]
+}
+
+model VendorProfile {
+  id          String   @id @default(uuid())
+  userId      String   @unique
+  user        User     @relation(fields: [userId], references: [id])
+  category    String
+  description String
+  location    String
+  imageUrl    String?
+  rating      Float    @default(0)
+  minPrice    Float    @default(0)
+  
+  services    Service[]
+}
+
+model Service {
+  id          String   @id @default(uuid())
+  vendorId    String
+  vendor      VendorProfile @relation(fields: [vendorId], references: [id])
+  name        String
+  description String
+  price       Float
+  unit        String   // per_hour, per_day etc
+}
+
+model Event {
+  id          String   @id @default(uuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  type        String
+  date        DateTime?
+  guestCount  Int      @default(0)
+  budget      Float    @default(0)
+  status      String   @default("DRAFT")
+  createdAt   DateTime @default(now())
+}
