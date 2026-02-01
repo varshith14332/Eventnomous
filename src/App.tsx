@@ -4,7 +4,7 @@ import { LoginPage } from './features/auth/pages/LoginPage';
 import { SignupPage } from './features/auth/pages/SignupPage';
 import { RequireAuth } from './components/auth/RequireAuth';
 import { DashboardLayout } from './features/dashboard/components/DashboardLayout';
-import { CustomerHome, VendorHome, ManagerHome, AdminHome } from './features/dashboard/pages/HomePages';
+import { VendorHome, ManagerHome, AdminHome } from './features/dashboard/pages/HomePages';
 import { MarketplacePage } from './features/marketplace/pages/MarketplacePage';
 import { VendorDetailsPage } from './features/marketplace/pages/VendorDetailsPage';
 import { DashboardRedirect } from './features/dashboard/components/DashboardRedirect';
